@@ -1,5 +1,4 @@
-import {COMPUTECOUNTADD,COMPUTECOUNTREDUCE} from '../mutation-types.js'
-
+import {COMPUTECOUNT} from '../mutation-types.js'
 const state = {
 	count: 0
 }
@@ -9,19 +8,21 @@ const getters = {
 }
 
 const actions = {
-    addCounter:    ({ commit }) => commit('COMPUTECOUNTADD'),
-    reduceCounter: ({ commit }) => commit('COMPUTECOUNTREDUCE')
+    addCounter:    ({ commit }) => commit('COMPUTECOUNT',{ type: 'add' }),
+    reduceCounter: ({ commit }) => commit('COMPUTECOUNT',{ type: 'reduce' })
 }
 
 const mutations = {
-	COMPUTECOUNTADD(state){
-		state.count++; 
-	},
-	COMPUTECOUNTREDUCE(state){
-		if(state.count > 0 ){
-			state.count--;
+	COMPUTECOUNT(state, payload){
+		if(payload.type == 'add'){
+			state.count++; 
 		}
-	}	
+		if(payload.type == 'reduce'){
+			if(state.count > 0 ){
+				state.count--;
+			}
+		}
+	}
 }
 
 export default {
